@@ -12,14 +12,12 @@ empScans as
   from EV_LOG
   inner join CARDSTATUS ON CARDSTATUS.STATUS = EV_LOG.STAT_COD
   where (EVNT_DAT is not null)
-  and (fname is not null)
-  and (lname is not null)
   group by CARDNO, LOCATION, fname, lname, EVNT_DAT, PANEL_DESCRP, CARDSTATUS.DESCRP
 )
 --This main query is tying everything together
   select * from empScans
   inner join BI on BI.cardno = empScans.CARDNO
-  where (evnt_dat >  '20190620 06:00:00')	--Start Date
-  and (evnt_dat < '20190625 19:00:00') --End Date
-  and (statDescrp='Active' OR statDescrp='Disabled')
+  where (evnt_dat >  '20190701 06:00:00') --Start Date
+  and (evnt_dat < '20190708 19:00:00') --End Date
+  and (BADGE_EMPLOYEE_NO ='78796')                                 
   order by evnt_dat desc
